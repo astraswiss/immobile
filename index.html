@@ -412,26 +412,14 @@ form.addEventListener('submit', async (e) => {
   sendBtn.disabled = true;
   sendBtn.textContent = 'Wird gesendet…';
 
-  const data = {};
   const fd = new FormData(form);
-  for (const [key, val] of fd.entries()) {
-    if (data[key]) {
-      data[key] = Array.isArray(data[key]) ? [...data[key], val] : [data[key], val];
-    } else {
-      data[key] = val;
-    }
-  }
-  for (const k in data) if (Array.isArray(data[k])) data[k] = data[k].join(', ');
-  data.timestamp = new Date().toISOString();
+  fd.append('timestamp', new Date().toISOString());
 
   try {
     const res = await fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(data)
+      headers: { 'Accept': 'application/json' },
+      body: fd
     });
     if (!res.ok) throw new Error('bad response');
     document.getElementById('form-view').style.display = 'none';
