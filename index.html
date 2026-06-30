@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wie arbeiten Makler wirklich? — Kurze Umfrage</title>
+<style>
+  :root{
+    --ink:#1a1813;
+    --ink-soft:#4a4639;
+    --paper:#faf6ee;
+    --card:#ffffff;
+    --muted:#8a8472;
+    --gold:#b8841c;
+    --gold-soft:#f5e6c4;
+    --line:#e6dfce;
+    --line-strong:#d4cab2;
+    --err:#c0492b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background-color:#faf6ee;
+    color:#1a1813;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+    padding:0 0 5rem;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 1.25rem}
+
+  /* HERO */
+  header{
+    padding:3.25rem 0 2rem;
+    border-bottom:1px solid #e6dfce;
+    margin-bottom:2.5rem;
+  }
+  .eyebrow{
+    display:inline-block;
+    font-size:.7rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#b8841c;
+    font-weight:700;
+    margin-bottom:1.1rem;
+    padding:.3rem .65rem;
+    background:#f5e6c4;
+    border-radius:5px;
+  }
+  h1{
+    font-size:clamp(1.9rem,6.5vw,2.8rem);
+    line-height:1.1;
+    font-weight:800;
+    letter-spacing:-.02em;
+    margin-bottom:1rem;
+    color:#1a1813;
+  }
+  h1 .u{
+    background:linear-gradient(transparent 60%, #f5e6c4 60%);
+    padding:0 .05em;
+  }
+  .lede{
+    font-size:1.05rem;
+    color:#4a4639;
+    max-width:46ch;
+  }
+  .lede strong{color:#1a1813;font-weight:700}
+  .meta{
+    display:flex;
+    gap:1.5rem;
+    margin-top:1.6rem;
+    font-size:.82rem;
+    color:#8a8472;
+  }
+  .meta span{display:flex;align-items:center;gap:.45rem}
+  .dot{width:6px;height:6px;border-radius:50%;background:#b8841c;flex-shrink:0}
+
+  /* SECTIONS */
+  .sec{margin-bottom:2.5rem}
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:.7rem;
+    margin-bottom:1.4rem;
+    padding-bottom:.6rem;
+    border-bottom:1px solid #e6dfce;
+  }
+  .sec-num{
+    font-size:.8rem;
+    font-weight:800;
+    color:#b8841c;
+    font-variant-numeric:tabular-nums;
+  }
+  .sec-title{
+    font-size:.76rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#8a8472;
+    font-weight:700;
+  }
+
+  .q{margin-bottom:1.75rem}
+  .q-label{
+    display:block;
+    font-size:1rem;
+    font-weight:600;
+    margin-bottom:.8rem;
+    line-height:1.4;
+    color:#1a1813;
+  }
+  .q-hint{
+    display:block;
+    font-size:.82rem;
+    color:#8a8472;
+    font-weight:400;
+    margin-top:.3rem;
+  }
+
+  /* INPUTS */
+  input[type=text], textarea, select{
+    width:100%;
+    background:#ffffff;
+    border:1px solid #d4cab2;
+    border-radius:9px;
+    color:#1a1813;
+    font:inherit;
+    font-size:1rem;
+    padding:.8rem .9rem;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  textarea{min-height:84px;resize:vertical;line-height:1.45}
+  input:focus, textarea:focus, select:focus{
+    outline:none;
+    border-color:#b8841c;
+    box-shadow:0 0 0 3px rgba(184,132,28,.15);
+  }
+  ::placeholder{color:#b3ac99}
+
+  /* CHOICE PILLS */
+  .choices{display:flex;flex-wrap:wrap;gap:.5rem}
+  .choice{position:relative}
+  .choice input{position:absolute;opacity:0;width:0;height:0}
+  .choice label{
+    display:block;
+    padding:.58rem .9rem;
+    background:#ffffff;
+    border:1px solid #d4cab2;
+    border-radius:999px;
+    font-size:.92rem;
+    color:#1a1813;
+    cursor:pointer;
+    transition:all .14s;
+    user-select:none;
+  }
+  .choice label:hover{border-color:#b8841c;background:#fdfaf3}
+  .choice input:checked + label{
+    background:#1a1813;
+    border-color:#1a1813;
+    color:#faf6ee;
+    font-weight:600;
+  }
+  .choice input:focus-visible + label{
+    box-shadow:0 0 0 3px rgba(184,132,28,.3);
+  }
+
+  /* SUBMIT */
+  .submit-sec{
+    background:#fff;
+    border:1px solid #e6dfce;
+    border-radius:14px;
+    padding:1.75rem 1.5rem;
+    margin-top:.5rem;
+  }
+  button.send{
+    width:100%;
+    background:#1a1813;
+    color:#faf6ee;
+    border:none;
+    border-radius:11px;
+    font:inherit;
+    font-size:1.05rem;
+    font-weight:700;
+    padding:1rem;
+    cursor:pointer;
+    transition:transform .1s, background .15s;
+  }
+  button.send:hover{background:#000}
+  button.send:active{transform:translateY(1px)}
+  button.send:disabled{opacity:.6;cursor:wait}
+  .fineprint{
+    text-align:center;
+    font-size:.8rem;
+    color:#8a8472;
+    margin-top:.9rem;
+  }
+  .fineprint a{color:#b8841c;font-weight:600;text-decoration:none}
+  .fineprint a:hover{text-decoration:underline}
+
+  /* STATES */
+  .state{display:none;text-align:center;padding:4rem 1rem}
+  .state.show{display:block}
+  .state .big{
+    width:64px;height:64px;line-height:64px;
+    margin:0 auto 1.25rem;
+    background:#1a1813;color:#faf6ee;
+    border-radius:50%;font-size:2rem;
+  }
+  .state h2{font-size:1.55rem;margin-bottom:.75rem;font-weight:800;color:#1a1813}
+  .state p{color:#4a4639;max-width:38ch;margin:0 auto}
+  .err-msg{color:#c0492b;font-size:.85rem;margin-top:1rem;display:none;text-align:center;font-weight:600}
+  .err-msg.show{display:block}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div id="form-view">
+    <header>
+      <span class="eyebrow">Forschung · keine Werbung</span>
+      <h1>Wie arbeiten <span class="u">Makler</span> wirklich?</h1>
+      <p class="lede">Ich versuche zu verstehen, wie Immobilienmakler in der Schweiz ihren Alltag wirklich bewältigen — wo Zeit verloren geht und wo gute Werkzeuge fehlen. <strong>Ich verkaufe nichts.</strong> Daraus möchte ich später etwas Nützliches für die Branche bauen, und dafür muss ich zuerst die echten Probleme kennen. Ehrliche Antworten sind mir mehr wert als höfliche.</p>
+      <div class="meta">
+        <span><span class="dot"></span>5 Minuten</span>
+        <span><span class="dot"></span>Anonym</span>
+      </div>
+    </header>
+
+    <form id="survey">
+
+      <div class="sec">
+        <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Über dich</span></div>
+
+        <div class="q">
+          <label class="q-label">Was beschreibt dich am besten?</label>
+          <div class="choices">
+            <span class="choice"><input type="radio" name="rolle" id="r1" value="Selbstständiger Makler"><label for="r1">Selbstständiger Makler</label></span>
+            <span class="choice"><input type="radio" name="rolle" id="r2" value="Inhaber Agentur"><label for="r2">Inhaber Agentur</label></span>
+            <span class="choice"><input type="radio" name="rolle" id="r3" value="Angestellter Agentur"><label for="r3">Angestellt in Agentur</label></span>
+            <span class="choice"><input type="radio" name="rolle" id="r4" value="Bewirtschaftung"><label for="r4">Bewirtschaftung</label></span>
+            <span class="choice"><input type="radio" name="rolle" id="r5" value="Anderes"><label for="r5">Anderes</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Wie lange schon in der Branche?</label>
+          <div class="choices">
+            <span class="choice"><input type="radio" name="erfahrung" id="e1" value="<1 Jahr"><label for="e1">&lt;1 Jahr</label></span>
+            <span class="choice"><input type="radio" name="erfahrung" id="e2" value="1-3 Jahre"><label for="e2">1–3 Jahre</label></span>
+            <span class="choice"><input type="radio" name="erfahrung" id="e3" value="4-10 Jahre"><label for="e3">4–10 Jahre</label></span>
+            <span class="choice"><input type="radio" name="erfahrung" id="e4" value="10+ Jahre"><label for="e4">10+ Jahre</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Wie viele Objekte betreust du im Schnitt pro Monat?</label>
+          <div class="choices">
+            <span class="choice"><input type="radio" name="objekte" id="o1" value="1-5"><label for="o1">1–5</label></span>
+            <span class="choice"><input type="radio" name="objekte" id="o2" value="6-15"><label for="o2">6–15</label></span>
+            <span class="choice"><input type="radio" name="objekte" id="o3" value="16-40"><label for="o3">16–40</label></span>
+            <span class="choice"><input type="radio" name="objekte" id="o4" value="40+"><label for="o4">40+</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Kanton / Region</label>
+          <input type="text" name="region" placeholder="z.B. Wallis, Zürich…">
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Deine echte Woche</span></div>
+
+        <div class="q">
+          <label class="q-label">Denk an die letzte Arbeitswoche. Welche 3 Tätigkeiten haben am meisten Zeit gefressen?
+            <span class="q-hint">Konkret, kein Idealbild.</span>
+          </label>
+          <textarea name="zeitfresser" placeholder="1.&#10;2.&#10;3."></textarea>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Welchen Teil der Arbeit schiebst du immer vor dir her oder machst du ungern?</label>
+          <textarea name="ungern" placeholder="…"></textarea>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Diese eine Sache von oben — wie viel Zeit kostet sie dich ungefähr pro Woche?
+            <span class="q-hint">Schätz ruhig. „2 Stunden", „den halben Freitag"…</span>
+          </label>
+          <input type="text" name="zeitkosten" placeholder="z.B. 3 Stunden pro Woche">
+        </div>
+
+        <div class="q">
+          <label class="q-label">Hast du schon mal versucht, das zu lösen? Wie ist es gelaufen?
+            <span class="q-hint">Tool gekauft, jemanden angestellt, selbst gebastelt — oder nie probiert? Was hat gefehlt?</span>
+          </label>
+          <textarea name="loesungsversuch" placeholder="…"></textarea>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Wofür hast du in den letzten 6 Monaten ein Tool, einen Dienst oder eine Person bezahlt, um dir ein Problem vom Hals zu schaffen?
+            <span class="q-hint">Wenn nichts: schreib einfach „nichts".</span>
+          </label>
+          <textarea name="bezahlt" placeholder="…"></textarea>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Wie viel ungefähr?</label>
+          <div class="choices">
+            <span class="choice"><input type="radio" name="ausgaben" id="a1" value="0"><label for="a1">CHF 0</label></span>
+            <span class="choice"><input type="radio" name="ausgaben" id="a2" value="1-50/Monat"><label for="a2">1–50/Monat</label></span>
+            <span class="choice"><input type="radio" name="ausgaben" id="a3" value="51-200/Monat"><label for="a3">51–200/Monat</label></span>
+            <span class="choice"><input type="radio" name="ausgaben" id="a4" value="200+/Monat"><label for="a4">200+/Monat</label></span>
+            <span class="choice"><input type="radio" name="ausgaben" id="a5" value="Einmalig"><label for="a5">Einmalig</label></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Wo es hakt</span></div>
+
+        <div class="q">
+          <label class="q-label">Das letzte Mal, als du ein Mandat oder einen Kunden verloren hast — was lief schief?</label>
+          <textarea name="verloren" placeholder="…"></textarea>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Wie verwaltest du Anfragen zu einem Inserat?
+            <span class="q-hint">Mehrfachauswahl möglich.</span>
+          </label>
+          <div class="choices">
+            <span class="choice"><input type="checkbox" name="anfragen" id="af1" value="E-Mail"><label for="af1">E-Mail</label></span>
+            <span class="choice"><input type="checkbox" name="anfragen" id="af2" value="Telefon"><label for="af2">Telefon</label></span>
+            <span class="choice"><input type="checkbox" name="anfragen" id="af3" value="WhatsApp"><label for="af3">WhatsApp</label></span>
+            <span class="choice"><input type="checkbox" name="anfragen" id="af4" value="Portal"><label for="af4">Portal</label></span>
+            <span class="choice"><input type="checkbox" name="anfragen" id="af5" value="CRM"><label for="af5">CRM</label></span>
+            <span class="choice"><input type="checkbox" name="anfragen" id="af6" value="Excel"><label for="af6">Excel</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Wie viel Prozent der Anfragen sind Zeitverschwendung (Neugierige, nicht ernsthaft)?</label>
+          <div class="choices">
+            <span class="choice"><input type="radio" name="zeitverschwendung" id="z1" value="<10%"><label for="z1">&lt;10%</label></span>
+            <span class="choice"><input type="radio" name="zeitverschwendung" id="z2" value="10-30%"><label for="z2">10–30%</label></span>
+            <span class="choice"><input type="radio" name="zeitverschwendung" id="z3" value="30-50%"><label for="z3">30–50%</label></span>
+            <span class="choice"><input type="radio" name="zeitverschwendung" id="z4" value="50%+"><label for="z4">50%+</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Welches Werkzeug benutzt du für etwas, wofür es eigentlich gar nicht gedacht ist?
+            <span class="q-hint">z.B. Excel für X, WhatsApp für Y. Solche Behelfslösungen verraten am meisten.</span>
+          </label>
+          <textarea name="workaround" placeholder="…"></textarea>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Der Wunsch</span></div>
+
+        <div class="q">
+          <label class="q-label">Wenn du morgen EINE lästige Tätigkeit aus deinem Job streichen könntest — welche wäre das?</label>
+          <textarea name="streichen" placeholder="…"></textarea>
+        </div>
+
+        <div class="q">
+          <label class="q-label">Hast du je auf Google nach einem Tool gesucht in der Hoffnung, es gäbe es — und nichts gefunden? Wonach hast du gesucht?</label>
+          <textarea name="gesucht" placeholder="…"></textarea>
+        </div>
+      </div>
+
+      <div class="submit-sec">
+        <div class="q" style="margin-bottom:1.4rem">
+          <label class="q-label">Deine E-Mail — nur wenn du willst
+            <span class="q-hint">Die Umfrage ist anonym. Lässt du deine E-Mail da, melde ich mich, sobald aus dieser Recherche etwas entsteht — oder für ein kurzes Gespräch. Kein Newsletter, kein Spam.</span>
+          </label>
+          <input type="text" name="email" placeholder="name@beispiel.ch (optional)">
+        </div>
+
+        <button type="submit" class="send" id="sendBtn">Senden</button>
+        <p class="fineprint">Die Antworten sind anonym. Eine E-Mail gibst du nur ab, wenn du willst.</p>
+        <p class="fineprint">Fragen oder Lust auf ein Gespräch? <a href="mailto:fatbardh_berisha@icloud.com">fatbardh_berisha@icloud.com</a></p>
+        <p class="err-msg" id="errMsg">Etwas hat nicht geklappt. Bitte versuch es nochmal.</p>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="state" id="success-view">
+    <div class="big">✓</div>
+    <h2>Danke — das hilft wirklich.</h2>
+    <p>Deine Antworten sind angekommen. Das hilft mir wirklich. Falls du deine E-Mail dagelassen hast, melde ich mich, sobald etwas daraus entsteht.</p>
+  </div>
+
+</div>
+
+<script>
+// Formspree-Endpoint: nach der Registrierung auf formspree.io erhältst du
+// eine URL der Form "https://formspree.io/f/XXXXXXXX" — hier eintragen.
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/DEIN_FORMSPREE_ID";
+
+const form = document.getElementById('survey');
+const sendBtn = document.getElementById('sendBtn');
+const errMsg = document.getElementById('errMsg');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errMsg.classList.remove('show');
+  sendBtn.disabled = true;
+  sendBtn.textContent = 'Wird gesendet…';
+
+  const data = {};
+  const fd = new FormData(form);
+  for (const [key, val] of fd.entries()) {
+    if (data[key]) {
+      data[key] = Array.isArray(data[key]) ? [...data[key], val] : [data[key], val];
+    } else {
+      data[key] = val;
+    }
+  }
+  for (const k in data) if (Array.isArray(data[k])) data[k] = data[k].join(', ');
+  data.timestamp = new Date().toISOString();
+
+  try {
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error('bad response');
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('success-view').classList.add('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  } catch (err) {
+    sendBtn.disabled = false;
+    sendBtn.textContent = 'Antworten absenden';
+    errMsg.classList.add('show');
+  }
+});
+</script>
+
+</body>
+</html>
